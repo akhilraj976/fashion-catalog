@@ -11,7 +11,12 @@ import com.akhil.ecom.model.Product;
  */
 public interface ProductRepository extends CrudRepository<Product, Long> {
 	
-	List<Product> findByTitleContaining(String title);
+	List<Product> findByTitleContainingIgnoreCase(String title);
 	
-	List<Product> findByBrandContaining(String brand);
+	List<Product> findByBrandContainingIgnoreCase(String brand);
+	
+	//List<Product> findTop10ById();
+	
+	List<Product> findBytrending(boolean trending);
+	
 }

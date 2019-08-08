@@ -22,7 +22,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return (List<Product>) repo.findAll();
+    	List<Product> products = (List<Product>) repo.findAll();
+    	if(products.isEmpty()){
+    		throw new EcomException("No products found, Initialize the product repo");
+    	}
+		return products;
     }
 
     @Override
@@ -40,9 +44,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> searchProducts(String title) {
 		
-		List<Product> productList = repo.findByTitleContaining(title);
-		if(null == productList){
-			productList = repo.findByBrandContaining(title);
+		List<Product> productList = repo.findByTitleContainingIgnoreCase(title);
+		if(productList.isEmpty()){
+			productList = repo.findByBrandContainingIgnoreCase(title);
+			if(productList.isEmpty()){
+				productList = repo.findBytrending(true);
+			}
 		}
 		return productList;
 	}

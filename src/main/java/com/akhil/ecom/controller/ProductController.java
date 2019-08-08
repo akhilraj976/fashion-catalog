@@ -17,7 +17,7 @@ import com.akhil.ecom.service.ProductService;
  *
  */
 @RestController
-@RequestMapping("/fashion/products")
+@RequestMapping("/fashion/v1/products")
 public class ProductController {
 
 	@Autowired
